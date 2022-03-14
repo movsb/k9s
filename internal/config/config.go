@@ -99,6 +99,8 @@ func (c *Config) Refine(flags *genericclioptions.ConfigFlags, k9sFlags *Flags, c
 		ns = *flags.Namespace
 	} else if isSet(flags.Context) {
 		ns = context.Namespace
+	} else if env := os.Getenv(`NAMESPACE`); env != "" {
+		ns = env
 	} else {
 		ns = c.K9s.ActiveCluster().Namespace.Active
 	}
